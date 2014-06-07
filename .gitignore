@@ -25,5 +25,7 @@ build/Release
 node_modules
 .DS_Store
 **.*~
-bower_components
+
+# browserified JavaScript which is generated so we don't want to store it.
+index.js
 

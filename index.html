@@ -1,37 +1,8 @@
 <!DOCTYPE>
 <html>
   <head>
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/underscore/underscore.js"></script>
-    <script src="bower_components/backbone/backbone.js"></script>
-    <script>
-      var router = Backbone.Router.extend({
-        routes: {
-            '': 'home'
-        },
-        initialize: function() {
-          
-        },
-        home: function() {
-          this.homeView = new homeView;
-          this.homeView.render();
-        }
-      });
-      var homeView = Backbone.View.extend({
-        el:'body',
-        template: _.template('Hello World'),
-        render: function() {
-          this.$el.html(this.template({}));
-        }
-      });
-      var app;
-      $(document).ready(function() {
-        app = new router;
-        Backbone.history.start();
-      })
-    </script>
+    <script src="index.js"></script>
   </head>
   <body>
-    
   </body>
 </html>
