@@ -26,6 +26,6 @@ node_modules
 .DS_Store
 **.*~
 
-# browserified JavaScript which is generated so we don't want to store it.
-index.js
+# the distribution directory which is generated so we don't want to store it.
+dist
 

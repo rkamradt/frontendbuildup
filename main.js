@@ -11,7 +11,7 @@ var router = Backbone.Router.extend({
     
   },
   home: function() {
-    this.homeView = new homeView;
+    this.homeView = new homeView();
     this.homeView.render();
   }
 });
@@ -24,6 +24,6 @@ var homeView = Backbone.View.extend({
 });
 var app;
 $(document).ready(function() {
-  app = new router;
+  app = new router();
   Backbone.history.start();
-})
+});
