@@ -1,4 +1,5 @@
 module.exports = function(grunt) {
+  require('load-grunt-tasks')(grunt);
 
   // Project configuration.
   grunt.initConfig({
@@ -37,15 +38,23 @@ module.exports = function(grunt) {
           'dist/js/index.min.js': ['dist/js/index.js']
         }
       }
+    },
+    simplemocha: {
+        options: {
+            globals: ['should'],
+            timeout: 3000,
+            ignoreLeaks: false,
+            ui: 'bdd',
+            reporter: 'nyan'
+        },
+
+        client: {
+            src: ['test/**/*.test.js']
+        }
     }
   });
-
-  // Load the plugin that provides the "browserify" task.
-  grunt.loadNpmTasks('grunt-browserify');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
   // Default task(s).
-  grunt.registerTask('default', ['jshint', 'browserify', 'copy', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'browserify', 'copy', 'uglify', 'simplemocha' ]);
+  grunt.registerTask('test', ['simplemocha' ]);
 
 };
