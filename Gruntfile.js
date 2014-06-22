@@ -6,7 +6,7 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     browserify: {
       build: {
-        src: 'main.js',
+        src: 'client/main.js',
         dest: 'dist/js/index.js'
       }
     },
@@ -24,10 +24,24 @@ module.exports = function(grunt) {
           src: ['Gruntfile.js', 'main.js']
         }
     },
+    clean: {
+      build: {
+        src: [ 'dist' ]
+      },
+      all: {
+        src: ['node_modules']
+      }
+    },
     copy: {
-        main: {
+        build: {
           expand: true,
           cwd: 'static/',
+          src: '**',
+          dest: 'dist/',
+        },
+        bootstrap: {
+          expand: true,
+          cwd: 'node_modules/bootstrap/dist/',
           src: '**',
           dest: 'dist/',
         }
@@ -54,7 +68,7 @@ module.exports = function(grunt) {
     }
   });
   // Default task(s).
-  grunt.registerTask('default', ['jshint', 'browserify', 'copy', 'uglify', 'simplemocha' ]);
+  grunt.registerTask('default', ['jshint', 'browserify', 'copy:bootstrap', 'copy:build', 'uglify' ]);
   grunt.registerTask('test', ['simplemocha' ]);
 
 };
