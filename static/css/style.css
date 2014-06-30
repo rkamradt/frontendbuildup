@@ -1,31 +1,40 @@
 body {
-        padding-top: 50px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
 }
 
-.container {
-        max-width:1000px;
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
 }
-
-.jumbotron {
-        text-align: center;
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
 }
-
-.glyphicon {
-        font-size: 3em;
-        display: block;
-        margin: auto;
-        color: #3a87ad;
-        text-align: center;
+.form-signin .checkbox {
+  font-weight: normal;
 }
-
-.carousel-indicators {
-        bottom: 0;
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
 }
-
-.carousel-indicators .active {
-        background-color: #222;
+.form-signin .form-control:focus {
+  z-index: 2;
 }
-
-.carousel-indicators .li {
-        background-color: #222;
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }

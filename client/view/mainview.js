@@ -24,23 +24,22 @@ module.exports = Backbone.View.extend({
   el:'body',
   render: function() {
     this.$el.
-      append($("<div />", { "class": "container" })).
-        append($("<form />", { "class": "form-signin", "role": "form"}));
-    /*
-    $("<div />", {
-      "class": "navbar navbar-inverse navbar-fixed-top"
-    }).
-      append($("<div />", {
-        type: "button",
-        "class": "contianer"
-      })).
-        append($("<button />", {
-          "class": "navbar-toggle"
-        })).
-          append($("<span />", {
-            "class": "icon-bar"
-          })).
-            appendTo(this.$el);
-    */
+      append($("<div />", { "class": "container" }).
+        append($("<form />", { "class": "form-signin", "role": "form"}).
+          append($("<h2 />", {"class": "form-signin-heading"}).html("Please sign in")).
+          append($("<input />", { "type": "email", "class": "form-control", "placeholder": "Email address", "required": true, "autofocus": true })).
+          append($("<input />", { "type": "password", "class": "form-control", "placeholder": "Password", "required": true })).
+          append($("<label />", { "class": "checkbox" }).
+            append($("<input />", { "type": "checkbox", "value": "remember-me"})).
+            append($("Remeber me")).
+          append($("<button />", { "class": "btn btn-lg btn-primary btn-block", "type": "submit"}).html("Sign in")))));
+      /*
+        <input type="email" class="form-control" placeholder="Email address" required autofocus>
+        <input type="password" class="form-control" placeholder="Password" required>
+        <label class="checkbox">
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        */
   } 
 });
