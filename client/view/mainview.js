@@ -31,8 +31,8 @@ module.exports = Backbone.View.extend({
           append($("<input />", { "type": "password", "class": "form-control", "placeholder": "Password", "required": true })).
           append($("<label />", { "class": "checkbox" }).
             append($("<input />", { "type": "checkbox", "value": "remember-me"})).
-            append($("Remeber me")).
-          append($("<button />", { "class": "btn btn-lg btn-primary btn-block", "type": "submit"}).html("Sign in")))));
+            append($("<span />").html("Remember me"))).
+          append($("<button />", { "class": "btn btn-lg btn-primary btn-block", "type": "submit"}).html("Sign in"))));
       /*
         <input type="email" class="form-control" placeholder="Email address" required autofocus>
         <input type="password" class="form-control" placeholder="Password" required>
