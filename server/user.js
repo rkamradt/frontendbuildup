@@ -41,6 +41,10 @@ module.exports = function() {
             if (!email) {
                 throw new Error("email_required_in_findUser");
             }
+            if (this._loggedOnUser == null || (this._loggedOnUser.role != 'admin' &&
+                    this._loggedOnUser.email != email)) {
+                throw new Error("must_be_logged_on_as_self_or_admin_in_findUser");
+            }
             return this._cloneUser(this._internalFindUser(email));
         },
         findUsers: function() {
@@ -87,9 +91,6 @@ module.exports = function() {
                 throw new Error("user_must_be_logged_on_or_admin_to_update");
             }
             var from = this._internalFindUser(user.email);
-            if (from.email != user.email) {
-                throw new Error("cannot_update_email");
-            }
             // expect user.password to be hashed (returned from findUser) if it's unhash, it wont match anyway
             if (from.password != user.password) {
                 throw new Error("cannot_update_password");
@@ -123,10 +124,10 @@ module.exports = function() {
         deleteUser: function(email) {
             var user = this._internalFindUser(email);
             if (!user) {
-                throw new Error("email doesn't exist in updatePassword");
+                throw new Error("email_doesnt_exist_in_deleteUser");
             }
             if (this._loggedOnUser.role != 'admin' && this._loggedOnUser.email != email) {
-                throw new Error("can only delete self or logged on as admin role")
+                throw new Error("can_only_delete_self_or_logged_on_as_admin_role_not_thrown")
             }
             var i = this._users.indexOf(user);
             this._users.splice(i, 1);
