@@ -62,7 +62,7 @@ module.exports = function(grunt) {
             reporter: 'nyan'
         },
 
-        client: {
+        all: {
             src: ['test/**/*.test.js']
         }
     }
