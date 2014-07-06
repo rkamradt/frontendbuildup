@@ -3,6 +3,7 @@ var $ = require('jquery');
 var Backbone = require('backbone');
 
 module.exports = Backbone.View.extend({
+  
   el:'body',
   render: function() {
     this.$el.
@@ -14,6 +15,20 @@ module.exports = Backbone.View.extend({
           append($("<label />", { "class": "checkbox" }).
             append($("<input />", { "name": "rememberme", "type": "checkbox", "value": "remember-me"})).
             append($("<span />").html("Remember me"))).
-          append($("<button />", { "class": "btn btn-lg btn-primary btn-block", "type": "submit"}).html("Sign in"))));
-  } 
+          append($("<button />", { "class": "btn btn-lg btn-primary btn-block", "type": "submit", "name": "logon" }).html("Sign in"))));
+  },
+  logon: function() {
+//    this.model.set({
+//      email: $('input[name=email').val(),
+//      password: $('input[name=password]').val(),
+//      rememberme: $('input[name=rememberme]').val(),
+//    });
+    this.model.save();
+    return false;
+  },
+
+  events: {
+    "click button[name=logon]": "logon"
+  },
+
 });
