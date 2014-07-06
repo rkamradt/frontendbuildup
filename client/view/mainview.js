@@ -3,6 +3,8 @@ var $ = require('jquery');
 var Backbone = require('backbone');
 
 module.exports = Backbone.View.extend({
+  initialize: function() {
+  },
   
   el:'body',
   render: function() {
@@ -17,13 +19,23 @@ module.exports = Backbone.View.extend({
             append($("<span />").html("Remember me"))).
           append($("<button />", { "class": "btn btn-lg btn-primary btn-block", "type": "submit", "name": "logon" }).html("Sign in"))));
   },
+  logonSuccess: function() {
+    alert("good logon, we should navigate somewhere");
+  },
+  logonFailure: function() {
+    alert("bad logon, try again");
+  },
   logon: function() {
-//    this.model.set({
-//      email: $('input[name=email').val(),
-//      password: $('input[name=password]').val(),
-//      rememberme: $('input[name=rememberme]').val(),
-//    });
-    this.model.save();
+    this.model.save(
+      {
+        email: $('input[name=email').val(),
+        password: $('input[name=password]').val(),
+        rememberme: $('input[name=rememberme]').val()
+      },
+      {
+        success: this.logonSuccess, error: this.logonFailure
+      }
+    );
     return false;
   },
 
