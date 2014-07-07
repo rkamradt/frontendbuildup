@@ -41,6 +41,6 @@ module.exports = Backbone.View.extend({
 
   events: {
     "click button[name=logon]": "logon"
-  },
+  }
 
 });
