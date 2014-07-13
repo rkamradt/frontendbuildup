@@ -40,10 +40,6 @@ module.exports = function() {
             if (!email) {
                 throw new Error("email_required_in_findUser");
             }
-//            if (this._loggedOnUser == null || (this._loggedOnUser.role != 'admin' &&
-//                    this._loggedOnUser.email != email)) {
-//                throw new Error("must_be_logged_on_as_self_or_admin_in_findUser");
-//            }
             return this._cloneUser(this._internalFindUser(email));
         },
         findUsers: function() {
@@ -59,20 +55,11 @@ module.exports = function() {
             return ret;
         },
         update: function(user) {
-//            if (!this._loggedOnUser) {
-//                throw new Error("must_be_logged_on_to_update");
-//            }
-//            if (user.email != this._loggedOnUser.email && this._loggedOnUser.role != 'admin') {
-//                throw new Error("user_must_be_logged_on_or_admin_to_update");
-//            }
             var from = this._internalFindUser(user.email);
             // expect user.password to be hashed (returned from findUser) if it's unhash, it wont match anyway
-            if (from.password != user.password) {
+            if (from.password !== user.password) {
                 throw new Error("cannot_update_password");
             }
-//            if (this._loggedOnUser.role != "admin" && from.role != user.role) {
-//                throw new Error("only_admin_can_change_role");
-//            }
             for (var i in user) { // have to fix this if user has more than one level
                 from[i] = user[i];
             }
@@ -98,9 +85,6 @@ module.exports = function() {
             if (!user) {
                 throw new Error("email_doesnt_exist_in_deleteUser");
             }
-//            if (this._loggedOnUser.role != 'admin' && this._loggedOnUser.email != email) {
-//                throw new Error("can_only_delete_self_or_logged_on_as_admin_role_not_thrown")
-//            }
             var i = this._users.indexOf(user);
             this._users.splice(i, 1);
         },
@@ -111,7 +95,7 @@ module.exports = function() {
             var user = null;
             for (var i = 0; i < this._users.length; i++) {
                 var value = this._users[i];
-                if (value.email == email) {
+                if (value.email === email) {
                     user = value;
                 }
             }

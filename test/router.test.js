@@ -7,11 +7,11 @@ describe('Router', function(){
     it('should return an error if trying to get users list if not logged on with admin', function(){
       request(url)
         .get('/api/users')
+        .expect(403)
         .end(function(err, res) {
           if (err) {
             throw err;
           }
-          res.should.have.status(400);
           done();
         });
       });
@@ -56,12 +56,11 @@ describe('Router', function(){
       request(url)
         .post('/api/users')
         .send(user)
-    // end handles the response
+        .expect(400)
         .end(function(err, res) {
           if (err) {
             throw err;
           }
-          res.should.have.status(400);
           done();
         });
       });
@@ -92,11 +91,11 @@ describe('Router', function(){
     it('should return an error if trying to logoff without being logged on', function(){
       request(url)
         .delete('/api/users')
+        .expect(400)
         .end(function(err, res) {
           if (err) {
             throw err;
           }
-          res.should.have.status(400);
           done();
         });
       });

@@ -8,14 +8,14 @@ var router = require('./server/router');
 var morgan = require('morgan');
 var session = require('cookie-session');
 
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({extended: true}));
 
 // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 app.use(session({
   keys: ['topsecret', 'needtoknow'],
-}))
+}));
 
 app.use(function (req, res, next) {
   if (req.session.isNew) {
@@ -25,7 +25,7 @@ app.use(function (req, res, next) {
     console.log("session already established, role = "+ req.session.role);
   }
   next();
-})
+});
 
 
 app.use(methodOverride());
