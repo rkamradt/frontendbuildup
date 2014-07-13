@@ -67,11 +67,15 @@ router.route('/api/users/:email')
 router.route('/api/users')
 .get(function(req, res, next) {
     if (req.session.role !== 'admin') { // must be admin to get a list of users
+      console.log('must be admin to get list of users, sending 403');
       res.send(403);
     } else {
       try {
-        res.json(UserAPI.findUsers());
+        var users = UserAPI.findUsers();
+        console.log('findUsers returned ' + users.toString);
+        res.json(users);
       } catch(e) {
+        console.log('error returned from findUsers, sending 400 message: ' + e.message);
         res.send(400, e.message); // all exceptions are 400 (bad request)
       }
     }
@@ -81,10 +85,13 @@ router.route('/api/users')
     user.email = req.body.email;
     user = UserAPI.findUser(user.email);
     if (!user) {
+      console.log('log on cant find user sending 400 email: ' + req.body.email);
       res.send(400, 'bad_log_on');
-    } else if (user.password === sha1(req.body.password)) {
+    } else if (user.password !== sha1(req.body.password)) {
+      console.log('log on password doesnt match, sending 400 email: ' + req.body.email);
       res.send(400, 'bad_log_on');
     } else {
+      console.log('log on good returning user ' + user.toString());
       req.session.role = user.role;
       req.session.user = user;
       res.json(user);
@@ -100,17 +107,21 @@ router.route('/api/users')
     };
     try {
       user = UserAPI.createUser(user);
+      console.log('createUser good, returning user ' + user.toString());
       res.json(user);
     } catch(e) {
+      console.log('error returned from createUser, sending 400 message: ' + e.message);
       res.send(400, e.message); // all exceptions are 400 (bad request)
     }
 })
 .delete(function(req, res, next) { // special case for logoff
     if (!req.session.user) {
+      console.log('not logged on error in logoff, sending 400');
       res.send(400, 'not_logged_on');
     } else {
       req.session.role = 'nobody';
       req.session.user = null;
+      console.log('logoff ok, returning 200');
       res.send(200);
     }
 });

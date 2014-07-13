@@ -58,8 +58,8 @@ module.exports = function(grunt) {
             globals: ['should'],
             timeout: 3000,
             ignoreLeaks: false,
-            ui: 'bdd',
-            reporter: 'nyan'
+//            reporter: 'nyan',
+            ui: 'bdd'
         },
 
         all: {
@@ -69,6 +69,6 @@ module.exports = function(grunt) {
   });
   // Default task(s).
   grunt.registerTask('default', ['jshint', 'browserify', 'copy:bootstrap', 'copy:build', 'uglify' ]);
-  grunt.registerTask('test', ['simplemocha' ]);
+  grunt.registerTask('test', ['jshint', 'simplemocha' ]);
 
 };
