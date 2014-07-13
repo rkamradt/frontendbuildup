@@ -1,5 +1,6 @@
 var express = require('express');
 var UserAPI = require('./user')();
+var sha1 = require('sha1');
 
 var router = express.Router();
 UserAPI.initialize();
@@ -30,16 +31,27 @@ router.route('/api/users/:email')
 
 router.route('/api/users')
 .get(function(req, res, next) {
-    res.json(UserAPI.findUsers());
+    if (req.session.role !== 'admin') {
+      res.send(403);
+    } else {
+      res.json(UserAPI.findUsers());
+    }
 })
-.post(function(req, res, next) { 
+.post(function(req, res, next) { // special case for logon
     var user ={};
     user.email = req.body.email;
-    user.password = req.body.password;
-    user = UserAPI.logon(user.email, user.password);
-    res.json(user);
+    user = UserAPI.findUser(user.email);
+    if (!user) {
+      res.send(400, 'bad_log_on');
+    } else if (user.password === sha1(req.body.password)) {
+      res.send(400, 'bad_log_on');
+    } else {
+      req.session.role = user.role;
+      req.session.user = user;
+      res.json(user);
+    }
 })
-.put(function(req, res, next) { // special case for logon
+.put(function(req, res, next) { 
     var user ={
         email: req.email,
         password: req.password,
@@ -51,8 +63,14 @@ router.route('/api/users')
     res.json(user);
 })
 .delete(function(req, res, next) { // special case for logoff
-    UserAPI.logoff();
-    res.json({});
+    if (!req.session.user) {
+      res.send(400, 'not_logged_on');
+    } else {
+      UserAPI.logoff();
+      req.session.role = 'nobody';
+      req.session.user = null;
+      res.send(200);
+    }
 })
 
 module.exports = router;

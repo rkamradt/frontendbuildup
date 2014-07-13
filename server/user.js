@@ -3,7 +3,6 @@ var sha1 = require('sha1');
 
 module.exports = function() {
     return {
-        _loggedOnUser: null,
         _users: null,
         initialize: function() {
             this.createUser("admin@genius.com", 'admin', 'Admin', 'Admin');
@@ -59,30 +58,6 @@ module.exports = function() {
             }
             return ret;
         },
-        logon: function(email, password) {
-            if (!email) {
-                throw new Error("email_required_in_logon");
-            }
-            if (!password) {
-                throw new Error("password_required_in_logon");
-            }
-            var user = this._internalFindUser(email);
-            if (!user) {
-                throw new Error("bad_logon_1");
-            }
-            if (sha1(password) != user.password) {
-                throw new Error("bad_logon_2");
-            }
-            this._loggedOnUser = user;
-            return this._cloneUser(user);
-        },
-        isLoggedon: function(email) {
-            if (!email) {
-                throw new Error("email_required_in_isLoggedon");
-            }
-            var user = this._internalFindUser(email);
-            return this._loggedOnUser === user;    
-        },
         update: function(user) {
 //            if (!this._loggedOnUser) {
 //                throw new Error("must_be_logged_on_to_update");
@@ -118,9 +93,6 @@ module.exports = function() {
             user.password = sha1(password);
             return this._cloneUser(user);
         },
-        logoff: function() {
-            this._loggedOnUser = null;  
-        },
         deleteUser: function(email) {
             var user = this._internalFindUser(email);
             if (!user) {
@@ -131,9 +103,6 @@ module.exports = function() {
 //            }
             var i = this._users.indexOf(user);
             this._users.splice(i, 1);
-            if (this._loggedOnUser.email == email) {
-                this._loggedOnUser = null;
-            }
         },
         _internalFindUser: function(email) {
             if (!this._users) {

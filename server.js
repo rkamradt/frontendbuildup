@@ -6,14 +6,28 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var router = require('./server/router');
 var morgan = require('morgan');
+var session = require('cookie-session');
 
 app.use(bodyParser.urlencoded({extended: true}))
 
 // parse application/json
 app.use(bodyParser.json())
 
-// parse application/vnd.api+json as json
-//app.use(bodyParser.json({ type: 'application/vnd.api+json' }))
+app.use(session({
+  keys: ['topsecret', 'needtoknow'],
+}))
+
+app.use(function (req, res, next) {
+  if (req.session.isNew) {
+    req.session.role = "nobody";
+    console.log("creating a new session setting role to nobody");
+  } else {
+    console.log("session already established, role = "+ req.session.role);
+  }
+  next();
+})
+
+
 app.use(methodOverride());
 app.use(morgan({ format: 'dev', immediate: true }));
 app.use(router);
