@@ -23,12 +23,12 @@ module.exports = Backbone.View.extend({
     alert("good logon, we should navigate somewhere");
   },
   logonFailure: function() {
-    alert("bad logon, try again");
+    $('h2[class=form-signin-heading]').html("Logon unsuccessful. Please sign in");
   },
   logon: function() {
     this.model.save(
       {
-        email: $('input[name=email').val(),
+        email: $('input[name=email]').val(),
         password: $('input[name=password]').val(),
         rememberme: $('input[name=rememberme]').val()
       },

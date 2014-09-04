@@ -58,7 +58,7 @@ module.exports = function(grunt) {
             globals: ['should'],
             timeout: 3000,
             ignoreLeaks: false,
-//            reporter: 'nyan',
+            reporter: 'nyan',
             ui: 'bdd'
         },
 
