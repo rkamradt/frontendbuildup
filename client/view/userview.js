@@ -11,7 +11,7 @@ module.exports = Backbone.View.extend({
     this.$el.append($("<div />", { "class": "container" }).
       append($("<div />", { "class": "hero-unit" }).
         append($("<h1 />").html("Like Me")).
-        append($("<p />").html("This is an amazing new social media application")).
+        append($("<p />").html("This is the user view")).
         append($("<p />").
           append($("<a />", { "class": "btn btn-primary btn-large", "name": "more" }).html("Learn more &raquo;")))));
   },

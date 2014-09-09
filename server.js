@@ -29,7 +29,7 @@ app.use(function (req, res, next) {
 
 
 app.use(methodOverride());
-app.use(morgan({ format: 'dev', immediate: true }));
+app.use(morgan("dev", { format: 'dev', immediate: true }));
 app.use(router);
 app.use('/', express.static(path.join(__dirname, 'dist')));
 

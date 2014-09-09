@@ -24,11 +24,6 @@ describe('Main', function(){
       password.should.containEql('required');
       password.should.containEql('type="password"');
     });
-    it('should have an checkbox in the browser that will retain logon info (tested elsewhere)', function(){
-      var checkbox = this.browser.html("input[name=rememberme]");
-      should.exist(checkbox);
-      checkbox.should.containEql('type="checkbox"')
-    });
     it('should have a submit button that will submit the form', function(){
       var button = this.browser.html("button");
       should.exist(button);
@@ -45,7 +40,8 @@ describe('Main', function(){
       fill("password", "badaswell").
       pressButton("logon", function() {
         should.exist(self.browser.success);
-        should.equal(self.browser.text("h2[class=form-signin-heading]"), "Logon unsuccessful. Please sign in");
+        should.exist(self.browser.html("div[name=logonmessage]"));
+//        should.equal(self.browser.text("div[name=logonmessage]"), "Unsuccessful logon, please try again");
 
       });
     });
@@ -60,11 +56,12 @@ describe('Main', function(){
       fill("password", "badaswell").
       pressButton("logon", function() {
         should.exist(self.browser.success);
-        should.equal(self.browser.text("h2[class=form-signin-heading]"), "Logon unsuccessful. Please sign in");
+        should.exist(self.browser.html("div[name=logonmessage]"));
+//        should.equal(self.browser.text("div[name=logonmessage]"), "Unsuccessful logon, please try again");
 
       });
     });
-    it('should move to the home screen if the submit button is pressed with a good email and a good password', function(){
+    it('should replace the logon form with welcome message if the submit button is pressed with a good email and a good password', function(){
       var email = this.browser.html("input[name=email]");
       should.exist(email);
       var password = this.browser.html("input[name=password]");
@@ -75,7 +72,8 @@ describe('Main', function(){
       fill("password", "admin").
       pressButton("logon", function() {
         should.exist(self.browser.success);
-        should.equal(self.browser.text("title"), "Welcome To our Webapp");
+        should.exist(self.browser.html("div[name=logonform]"));
+        should.equal(self.browser.text("div[name=logonform]"), "Welcome admin@genius.com");
 
       });
     });
