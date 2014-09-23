@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // parse application/json
 app.use(bodyParser.json());
-
+// just a check to see
 app.use(session({
   keys: ['topsecret', 'needtoknow'],
 }));
