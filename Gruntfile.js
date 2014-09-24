@@ -142,6 +142,6 @@ module.exports = function(grunt) {
   // Default task(s).
   grunt.registerTask('build', ['jshint', 'browserify', 'copy:bootstrap', 'copy:build', 'uglify' ]);
   grunt.registerTask('default', ['express:dev', 'watch']);
-  grunt.registerTask('test', ['jshint', 'simplemocha' ]);  
+  grunt.registerTask('test', ['jshint', 'build', 'express:dev', 'simplemocha', 'express:dev:stop' ]);  
 
 };

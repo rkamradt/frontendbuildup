@@ -3,6 +3,8 @@ frontendbuildup
 
 building up a front end from a single HTML file
 
+[ ![Codeship Status for rkamradt/frontendbuildup](https://www.codeship.io/projects/e31831e0-2652-0132-6bb3-260c56419231/status)](https://www.codeship.io/projects/37436)
+
 This repository goes along with a series of blog posts starting with
 [Tackling the front end](https://rlkamradt.wordpress.com/2014/06/03/tackling-the-front-end/)
 
