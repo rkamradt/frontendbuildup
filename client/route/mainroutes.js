@@ -2,7 +2,7 @@ var Backbone = require('backbone');
 var mainView = require('../view/mainview.js');
 var userView = require('../view/userview.js');
 var usersView = require('../view/usersview.js');
-var headerView = require('../view/headerView.js');
+var headerView = require('../view/headerview.js');
 var userModel = require('../model/user.js');
 
 module.exports = Backbone.Router.extend({
