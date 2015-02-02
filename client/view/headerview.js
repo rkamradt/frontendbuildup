@@ -1,19 +1,19 @@
 var _ = require('underscore');   // set up the underscore global handle.  _ is the convention
 var $ = require('jquery');
 var Backbone = require('backbone');
+var React = require('react');
+var HeaderWidget = require('../component/header');
 
 module.exports = Backbone.View.extend({
   initialize: function() {
   },
   
   el:'body',
+  template: '<div class="widget-container"></div>',
   render: function() {
-      this.$el.append($("<div />", { "class": "navbar navbar-inverse navbar-fixed-top", "role": "navigation" }).
-        append($("<div />", { "class": "container" }).
-          append($("<div />", { "class": "navbar-header" }).
-            append($("<a />", { "class": "navbar-brand", "href": "#" }).html("Like Me"))).
-          append($("<div />", { "class": "navbar-collapse collapse", "name": "navbarcontents" }).
-            append(this.createUserPanel()))));
+    this.$el.html(this.template);
+    React.renderComponent(new HeaderWidget(), this.$('.widget-container').get(0));
+    return this;
   },
   logonSuccess: function(model, response, options) {
     window.currUser = options.view.model;

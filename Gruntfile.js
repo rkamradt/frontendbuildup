@@ -1,6 +1,7 @@
 module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
   grunt.loadNpmTasks('grunt-express-server');
+  grunt.loadNpmTasks('grunt-react');
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -46,7 +47,19 @@ module.exports = function(grunt) {
           }
       }
     },
+    react: {
+      files: {
+        expand: true,
+        cwd: 'client/component/jsx',
+        src: ['**/*.jsx'],
+        dest: 'client/component',
+        ext: '.js'
+      }
+    },
     browserify: {
+      options: {
+        transform: [ require('grunt-react').browserify]
+      },
       build: {
         src: 'client/main.js',
         dest: 'dist/js/index.js'
@@ -140,7 +153,7 @@ module.exports = function(grunt) {
     }
   });
   // Default task(s).
-  grunt.registerTask('build', ['jshint', 'browserify', 'copy:bootstrap', 'copy:build', 'uglify' ]);
+  grunt.registerTask('build', ['react', 'jshint', 'browserify', 'copy:bootstrap', 'copy:build', 'uglify' ]);
   grunt.registerTask('default', ['express:dev', 'watch']);
   grunt.registerTask('test', ['jshint', 'build', 'express:dev', 'simplemocha', 'express:dev:stop' ]);  
 

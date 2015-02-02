@@ -29,3 +29,5 @@ node_modules
 # the distribution directory which is generated so we don't want to store it.
 dist
 
+# ignore the output of the jsx compiler
+client/component/*.js
